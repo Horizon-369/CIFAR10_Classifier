@@ -76,19 +76,14 @@ def predict(img):
 
 
 # Example images for the Gradio interface
-examples = [
-    ["/content/data/cifar10/test/airplane/0001.png"],
-    ["/content/data/cifar10/test/bird/0007.png"],
-    ["/content/data/cifar10/test/dog/0004.png"],
-    ["/content/data/cifar10/test/ship/0009.png"]
-]
+example_list = [["examples/" + example] for example in os.listdir("examples")]
 
 # Create the Gradio interface
 demo = gr.Interface(fn=predict, 
                     inputs=gr.Image(type="pil"), 
                     outputs=[gr.Label(num_top_classes=5, label="Predictions"),
                               gr.Number(label="Prediction time (s)")], 
-                    examples=examples,
+                    examples=example_list,
                     title="CIFAR-10 Image Classifier",
                     description="A computer Vision Model to Classify images 10 classes from CIFAR10 Dataset.",
                     allow_flagging="never")
